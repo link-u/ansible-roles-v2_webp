@@ -1,0 +1,20 @@
+---
+- name: Remove WebP package
+  become: yes
+  apt:
+    pkg: "{{ item }}"
+    state: absent
+  with_items:
+    - webp
+    - libwebp-dev
+
+- name: Download WebP
+  become: yes
+  unarchive:
+    src: "{{ webp_download_url }}"
+    dest: "{{ webp_download_dest }}"
+    remote_src: true
+
+- name: Install WebP
+  become: yes
+  shell: "find {{ webp_download_dest }}/{{ webp_dirname }}/ -mindepth 1 -maxdepth 1 -type d | xargs -i cp -rf {} {{ webp_install_dest }}"
