@@ -8,13 +8,42 @@
     - webp
     - libwebp-dev
 
-- name: Download WebP
+- name: Install packages
   become: yes
-  unarchive:
-    src: "{{ webp_download_url }}"
-    dest: "{{ webp_download_dest }}"
-    remote_src: true
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - libjpeg-dev
+    - libpng-dev
+    - libtiff-dev
+    - libgif-dev
 
-- name: Install WebP
+- name: Is webp already installed?
   become: yes
-  shell: "find {{ webp_download_dest }}/{{ webp_dirname }}/ -mindepth 1 -maxdepth 1 -type d | xargs -i cp -rf {} {{ webp_install_dest }}"
+  stat:
+    path: "{{ webp_install_dest }}/bin/cwebp"
+  register: webp_cmd
+  changed_when: not webp_cmd.stat.exists
+
+- block:
+  - name: Download WebP tarball
+    become: yes
+    unarchive:
+      src: "{{ webp_download_url }}"
+      dest: "{{ webp_download_dest }}"
+      remote_src: true
+
+  - name: Install WebP
+    become: yes
+    shell:
+      "{{ item }}"
+    args:
+      chdir: "{{ webp_download_dest }}/{{ webp_dirname }}"
+    with_items:
+      - ./configure
+      - make
+      - make install
+      - "ldconfig {{ webp_prefix }}/lib"
+  when: not webp_cmd.stat.exists
+
