@@ -27,6 +27,14 @@
   changed_when: not webp_cmd.stat.exists
 
 - block:
+  - name: install build packages
+    become: yes
+    apt:
+      pkg: "{{ item }}"
+      update_cache: yes
+    with_items:
+      - build-essential
+
   - name: Download WebP tarball
     become: yes
     unarchive:
@@ -46,4 +54,3 @@
       - make install
       - "ldconfig {{ webp_prefix }}/lib"
   when: not webp_cmd.stat.exists
-
