@@ -1,5 +1,5 @@
 ---
-webp_version: 0.6.0
+webp_version: 1.0.0
 webp_dirname: libwebp-{{ webp_version }}
 webp_download_url: https://storage.googleapis.com/downloads.webmproject.org/releases/webp/{{ webp_dirname }}.tar.gz
 webp_prefix: /usr/local

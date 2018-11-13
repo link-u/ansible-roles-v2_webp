@@ -2,22 +2,20 @@
 - name: Remove WebP package
   become: yes
   apt:
-    pkg: "{{ item }}"
+    pkg:
+      - webp
+      - libwebp-dev
     state: absent
-  with_items:
-    - webp
-    - libwebp-dev
 
 - name: Install packages
   become: yes
   apt:
-    name: "{{ item }}"
+    name:
+      - libjpeg-dev
+      - libpng-dev
+      - libtiff-dev
+      - libgif-dev
     state: present
-  with_items:
-    - libjpeg-dev
-    - libpng-dev
-    - libtiff-dev
-    - libgif-dev
 
 - name: Is webp already installed?
   become: yes
@@ -30,10 +28,9 @@
   - name: install build packages
     become: yes
     apt:
-      pkg: "{{ item }}"
+      pkg:
+        - build-essential
       update_cache: yes
-    with_items:
-      - build-essential
 
   - name: Download WebP tarball
     become: yes
@@ -50,7 +47,12 @@
       chdir: "{{ webp_download_dest }}/{{ webp_dirname }}"
     with_items:
       - ./configure
-      - make
+      - make -f makefile.unix examples/gif2webp
       - make install
       - "ldconfig {{ webp_prefix }}/lib"
-  when: not webp_cmd.stat.exists
+
+  - name: Put gif2webp
+    become: yes
+    shell: "cp {{ webp_download_dest }}/{{ webp_dirname }}/examples/gif2webp {{ webp_prefix }}/bin/"
+
+  #when: not webp_cmd.stat.exists
