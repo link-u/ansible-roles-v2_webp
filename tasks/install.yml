@@ -1,0 +1,59 @@
+---
+# defaults/install.yml (webp)
+# Prefix : webp
+
+- name: Remove WebP package
+  become: yes
+  apt:
+    name:
+      - webp
+      - libwebp-dev
+    state: absent
+
+- name: Install packages
+  become: yes
+  apt:
+    name:
+      - libjpeg-dev
+      - libpng-dev
+      - libtiff-dev
+      - libgif-dev
+    state: present
+
+- name: Is webp already installed?
+  become: yes
+  stat:
+    path: "{{ webp_install_dest }}/bin/cwebp"
+  register: webp_cmd
+  changed_when: not webp_cmd.stat.exists
+
+- block:
+  - name: install build packages
+    become: yes
+    apt:
+      pkg:
+        - build-essential
+      update_cache: yes
+
+  - name: Download WebP tarball
+    become: yes
+    unarchive:
+      src: "{{ webp_download_url }}"
+      dest: "{{ webp_download_dest }}"
+      remote_src: true
+
+  - name: Install WebP
+    become: yes
+    shell:
+      "{{ item }}"
+    args:
+      chdir: "{{ webp_download_dest }}/{{ webp_dirname }}"
+    loop:
+      - "./configure"
+      - "make -f makefile.unix examples/gif2webp"
+      - "make install"
+      - "ldconfig {{ webp_prefix }}/lib"
+
+  - name: Put gif2webp
+    become: yes
+    shell: "cp {{ webp_download_dest }}/{{ webp_dirname }}/examples/gif2webp {{ webp_prefix }}/bin/"
