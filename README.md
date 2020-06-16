@@ -18,7 +18,7 @@ webp_install_flag: True  # インストールフラグ
 #  * deb に以降する際に make install したファイルを掃除するのに以下の変数は必要
 #  * 特に group_vars で修正するような項目はない
 webp_version: 1.0.0
-webp_download_url: "https://storage.googleapis.com/downloads.webmproject.org/releases/webp/{{ webp_dirname }}.tar.gz"
+webp_download_url: "https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-{{ webp_version }}.tar.gz"
 webp_prefix: "/usr/local"
 ```
 
