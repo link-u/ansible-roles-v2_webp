@@ -2,7 +2,7 @@
 # defaults/install.yml (webp)
 # Prefix : webp
 
-- name: Check mozjpeg is installed
+- name: Check webp is installed
   stat:
     path: "{{ webp_prefix }}/bin/cwebp"
   register: webp_cmd
