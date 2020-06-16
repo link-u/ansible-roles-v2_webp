@@ -20,7 +20,6 @@ webp_install_flag: True  # インストールフラグ
 webp_version: 1.0.0
 webp_download_url: "https://storage.googleapis.com/downloads.webmproject.org/releases/webp/{{ webp_dirname }}.tar.gz"
 webp_prefix: "/usr/local"
-webp_download_dest: "{{ webp_prefix }}/src"
 ```
 
 ### Example playbook
@@ -41,3 +40,4 @@ deb パッケージでのインストールに移行したため以下の変数�
 
 * `webp_dirname`
 * `webp_install_dest`
+* `webp_download_dest`

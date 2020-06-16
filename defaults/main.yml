@@ -12,4 +12,3 @@ webp_install_flag: True  # インストールフラグ
 webp_version: 1.0.0
 webp_download_url: "https://storage.googleapis.com/downloads.webmproject.org/releases/webp/{{ webp_dirname }}.tar.gz"
 webp_prefix: "/usr/local"
-webp_download_dest: "{{ webp_prefix }}/src"

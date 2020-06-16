@@ -13,6 +13,10 @@
     {% if webp_install_dest is defined %}
       echo "webp_install_dest";
     {% endif %}
+
+    {% if webp_download_dest is defined %}
+      echo "webp_download_dest";
+    {% endif %}
   register: __webp_check_deleted_vars
   check_mode: no
   changed_when:
