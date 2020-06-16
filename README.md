@@ -33,6 +33,11 @@ webp_download_dest: "{{ webp_prefix }}/src"
     - { role: webp, tags: ["webp"] }
 ```
 
+## 後方互換性について
 
+### 削除された変数の一覧
 
+deb パッケージでのインストールに移行したため以下の変数は `group_vars` から削除して頂いて大丈夫です.
 
+* `webp_dirname`
+* `webp_install_dest`
