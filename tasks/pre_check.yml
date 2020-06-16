@@ -1,0 +1,20 @@
+---
+# tasks/pre_check.yml (webp)
+# Prefix : webp
+
+- name: Check for deleted variables
+  shell: >-
+    echo "[WARNING]: 以下の変数は削除されました. 以下の URL を確認してください. @y_hashida";
+    echo "    https://github.com/link-u/ansible-roles-v2_webp/blob/master/README.md#削除された変数の一覧";
+    {% if webp_dirname is defined %}
+      echo "webp_dirname";
+    {% endif %}
+
+    {% if webp_install_dest is defined %}
+      echo "webp_install_dest";
+    {% endif %}
+  register: __webp_check_deleted_vars
+  check_mode: no
+  changed_when:
+    - (__webp_check_deleted_vars.stdout_lines | length) != 2
+  notify: "Print warning for webp (Check for deleted variables)"
