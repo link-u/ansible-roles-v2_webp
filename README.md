@@ -43,3 +43,6 @@ deb パッケージでのインストールに移行したため以下の変数�
 * `webp_dirname`
 * `webp_install_dest`
 * `webp_download_dest`
+
+## License
+MIT
