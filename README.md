@@ -1,5 +1,7 @@
 # webp
 
+![ansible ci](https://github.com/link-u/ansible-roles-v2_webp/workflows/ansible%20ci/badge.svg)
+
 ## 概要
 
 webp をインストール ansible role
@@ -41,3 +43,6 @@ deb パッケージでのインストールに移行したため以下の変数�
 * `webp_dirname`
 * `webp_install_dest`
 * `webp_download_dest`
+
+## License
+MIT
