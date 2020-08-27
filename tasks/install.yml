@@ -7,7 +7,8 @@
     path: "{{ webp_prefix }}/bin/cwebp"
   register: webp_cmd
 
-- block:
+- name: "Remove webp installed from source"
+  block:
     - name: install build packages
       become: yes
       apt:
