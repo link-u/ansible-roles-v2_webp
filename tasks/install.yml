@@ -23,12 +23,18 @@
       file:
         path: "/tmp/src_webp"
         state: directory
+        owner: "root"
+        group: "root"
+        mode: "0755"
 
     - name: Download WebP tarball
       become: yes
       unarchive:
         src: "{{ webp_download_url }}"
         dest: "/tmp/src_webp"
+        owner: "root"
+        group: "root"
+        mode: "0755"
         remote_src: true
 
     - name: configure and make uninstall
